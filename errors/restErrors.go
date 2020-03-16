@@ -1,6 +1,9 @@
 package errors
 
-import "net/http"
+import (
+	"errors"
+	"net/http"
+)
 
 //RestErr Struct
 type RestErr struct {
@@ -8,6 +11,11 @@ type RestErr struct {
 	Status  int           `json:"status"`
 	Error   string        `json:"error"`
 	Causes  []interface{} `json:"causes"`
+}
+
+//New error from default errors package
+func New(detail string) error {
+	return errors.New(detail)
 }
 
 //DefaultError Defautl error generator
