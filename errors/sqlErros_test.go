@@ -24,8 +24,8 @@ func TestParseErrorInteralError(t *testing.T) {
 	assert.EqualValues(t, "error parsing database response", err.Message)
 
 	assert.NotNil(t, err.Causes)
-	assert.EqualValues(t, 1, len(err.Causes))
-	assert.EqualValues(t, "any not mysql error", err.Causes[0])
+	assert.EqualValues(t, 1, len(err.Causes()))
+	assert.EqualValues(t, "any not mysql error", err.Causes()[0])
 
 }
 
@@ -41,8 +41,8 @@ func TestParseErrorBadRequest(t *testing.T) {
 	assert.EqualValues(t, "invalid email", err.Message)
 
 	assert.NotNil(t, err.Causes)
-	assert.EqualValues(t, 1, len(err.Causes))
-	assert.EqualValues(t, "Error 1062: My test message", err.Causes[0])
+	assert.EqualValues(t, 1, len(err.Causes()))
+	assert.EqualValues(t, "Error 1062: My test message", err.Causes()[0])
 
 }
 
@@ -58,7 +58,7 @@ func TestParseErrorInternalErrorDataBase(t *testing.T) {
 	assert.EqualValues(t, "error processing request", err.Message)
 
 	assert.NotNil(t, err.Causes)
-	assert.EqualValues(t, 1, len(err.Causes))
-	assert.EqualValues(t, "Database out", err.Causes[0])
+	assert.EqualValues(t, 1, len(err.Causes()))
+	assert.EqualValues(t, "Database out", err.Causes()[0])
 
 }

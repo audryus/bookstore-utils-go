@@ -21,8 +21,8 @@ func TestDefaultError(t *testing.T) {
 	assert.EqualValues(t, errorDescription, err.Error)
 
 	assert.NotNil(t, err.Causes)
-	assert.EqualValues(t, 1, len(err.Causes))
-	assert.EqualValues(t, "new error", err.Causes[0])
+	assert.EqualValues(t, 1, len(err.Causes()))
+	assert.EqualValues(t, "new error", err.Causes()[0])
 }
 
 //BadRequestError error for bad request
@@ -34,8 +34,8 @@ func TestBadRequestError(t *testing.T) {
 	assert.EqualValues(t, "bad_request", err.Error)
 
 	assert.NotNil(t, err.Causes)
-	assert.EqualValues(t, 1, len(err.Causes))
-	assert.EqualValues(t, "something is missing", err.Causes[0])
+	assert.EqualValues(t, 1, len(err.Causes()))
+	assert.EqualValues(t, "something is missing", err.Causes()[0])
 
 	err = InternalServerError(errorMessage, nil)
 	assert.Nil(t, err.Causes)
@@ -60,8 +60,8 @@ func TestInternalServerError(t *testing.T) {
 	assert.EqualValues(t, "internal_server_error", err.Error)
 
 	assert.NotNil(t, err.Causes)
-	assert.EqualValues(t, 1, len(err.Causes))
-	assert.EqualValues(t, "database error", err.Causes[0])
+	assert.EqualValues(t, 1, len(err.Causes()))
+	assert.EqualValues(t, "database error", err.Causes()[0])
 
 	err = InternalServerError(errorMessage, nil)
 	assert.Nil(t, err.Causes)
