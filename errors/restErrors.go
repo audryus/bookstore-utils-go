@@ -51,3 +51,8 @@ func InternalServerError(message string, err error) *RestErr {
 func NotImpemented() *RestErr {
 	return defaultError("Plase implement me.", http.StatusNotImplemented, "not_implemented", nil)
 }
+
+//UnautorizedError token error
+func UnautorizedError() *RestErr {
+	return defaultError("Unable to retrieve user information from given access token.", http.StatusUnauthorized, "unauthorized", nil)
+}

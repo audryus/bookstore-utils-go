@@ -74,3 +74,11 @@ func TestNotImplemented(t *testing.T) {
 	assert.EqualValues(t, "Plase implement me.", err.Message)
 	assert.EqualValues(t, "not_implemented", err.Error)
 }
+
+func TestUnauthorized(t *testing.T) {
+	err := UnautorizedError()
+	assert.NotNil(t, err)
+	assert.EqualValues(t, http.StatusUnauthorized, err.Status)
+	assert.EqualValues(t, "Unable to retrieve user information from given access token.", err.Message)
+	assert.EqualValues(t, "unauthorized", err.Error)
+}
