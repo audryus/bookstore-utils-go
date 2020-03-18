@@ -46,3 +46,8 @@ func NotFoundError(message string) *RestErr {
 func InternalServerError(message string, err error) *RestErr {
 	return defaultError(message, http.StatusInternalServerError, "internal_server_error", err)
 }
+
+//NotImpemented 501 error
+func NotImpemented() *RestErr {
+	return defaultError("Plase implement me.", http.StatusNotImplemented, "not_implemented", nil)
+}

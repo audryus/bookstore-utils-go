@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	errorMessage = "this is the message"
-	errorDescription ="this is the error"
+	errorMessage     = "this is the message"
+	errorDescription = "this is the error"
 )
 
 func TestDefaultError(t *testing.T) {
@@ -65,4 +65,12 @@ func TestInternalServerError(t *testing.T) {
 
 	err = InternalServerError(errorMessage, nil)
 	assert.Nil(t, err.Causes)
+}
+
+func TestNotImplemented(t *testing.T) {
+	err := NotImpemented()
+	assert.NotNil(t, err)
+	assert.EqualValues(t, http.StatusNotImplemented, err.Status)
+	assert.EqualValues(t, "Plase implement me.", err.Message)
+	assert.EqualValues(t, "not_implemented", err.Error)
 }
