@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+//RestErr interface to represent a rest error
 type RestErr interface {
 	Message() string
 	Status() int
@@ -15,24 +16,24 @@ type RestErr interface {
 
 //RestErr Struct
 type restErr struct {
-	message string        `json:"message"`
-	status  int           `json:"status"`
-	error   string        `json:"error"`
-	causes  []interface{} `json:"causes"`
+	ErrMessage string        `json:"message"`
+	ErrStatus  int           `json:"status"`
+	ErrError   string        `json:"error"`
+	ErrCauses  []interface{} `json:"causes"`
 }
 
 func (e restErr) Message() string {
-	return e.message
+	return e.ErrMessage
 }
 func (e restErr) Status() int {
-	return e.status
+	return e.ErrStatus
 }
 func (e restErr) Causes() []interface{} {
-	return e.causes
+	return e.ErrCauses
 }
 func (e restErr) Error() string {
-	return fmt.Sprintf("message: %s - status: %s - error: %s - causes [%y]",
-		e.message, e.status, e.error, e.causes)
+	return fmt.Sprintf("message: %s - status: %d - error: %s - causes [%p]",
+		e.ErrMessage, e.ErrStatus, e.ErrError, e.ErrCauses)
 }
 
 //New error from default errors package
@@ -43,12 +44,12 @@ func New(detail string) error {
 //DefaultError Defautl error generator
 func defaultError(message string, status int, errorDesc string, err error) RestErr {
 	result := restErr{
-		message: message,
-		status:  status,
-		error:   errorDesc,
+		ErrMessage: message,
+		ErrStatus:  status,
+		ErrError:   errorDesc,
 	}
 	if err != nil {
-		result.causes = append(result.causes, err.Error())
+		result.ErrCauses = append(result.ErrCauses, err.Error())
 	}
 
 	return result
